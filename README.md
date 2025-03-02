@@ -104,7 +104,8 @@ class Group { String id; String name; }
 
 ## Installation
 
-1. Add the following key/value pair to your app's `Info.plist` (for iOS):
+### iOS and macOS
+Add the following key/value pair to your app's `Info.plist` (for iOS and macOS):
     ```xml
     <plist version="1.0">
     <dict>
@@ -114,7 +115,19 @@ class Group { String id; String name; }
     </dict>
     </plist>
     ```
-1. Add the following `<uses-permissions>` tags to your app's `AndroidManifest.xml` (for
+### macOS
+In addition to above, for macOS you will need to edit `DebugProfile.entitlements` (in debug) and `Release.entitlements` (in release)
+    ```xml
+    <plist version="1.0">
+    <dict>
+      ...
+      <key>com.apple.security.personal-information.addressbook</key>
+      <true/>
+    </dict>
+    </plist>
+    ```
+### Android
+Add the following `<uses-permissions>` tags to your app's `AndroidManifest.xml` (for
    Android):
     ```xml
     <manifest xmlns:android="http://schemas.android.com/apk/res/android" ...>
@@ -126,13 +139,13 @@ class Group { String id; String name; }
 
 ## Notes
 
-* On iOS13+ you can only access notes if your app is
+* On iOS13+ and macOS you can only access notes if your app is
   [entitled by Apple](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_contacts_notes)
   so notes are disabled by default. If you get entitlement, enable them via
   ```dart
   FlutterContacts.config.includeNotesOnIos13AndAbove = true;
   ```
-* On both iOS and Android there is a concept of **raw** and **unified** contacts. A
+* On both iOS/macOS and Android there is a concept of **raw** and **unified** contacts. A
   single person might have two raw contacts (for example from Gmail and from iCloud) but
   will be merged into a single view called a unified contact. In a contact app you
   typically want unified contacts, so this is what's returned by default. You can get
