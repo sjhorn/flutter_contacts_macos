@@ -55,7 +55,7 @@ public enum FlutterContacts {
             }
             // Notes need explicit entitlement from Apple starting with iOS13.
             // https://stackoverflow.com/questions/57442114/ios-13-cncontacts-no-longer-working-to-retrieve-all-contacts
-            if #available(iOS 13, macOS 10.11, *), !includeNotesOnIos13AndAbove {} else {
+            if #available(iOS 13, *), !includeNotesOnIos13AndAbove {} else {
                 keys.append(CNContactNoteKey)
             }
             if externalIntent {
@@ -241,7 +241,7 @@ public enum FlutterContacts {
             CNContactImageDataKey,
         ]
         if #available(iOS 10, macOS 10.12,*) { keys.append(CNContactPhoneticOrganizationNameKey) }
-        if #available(iOS 13, macOS 10.11, *), !includeNotesOnIos13AndAbove {} else {
+        if #available(iOS 13, *), !includeNotesOnIos13AndAbove {} else {
             keys.append(CNContactNoteKey)
         }
 
@@ -413,7 +413,7 @@ public enum FlutterContacts {
         (args["events"] as! [[String: Any]]).forEach {
             Event(fromMap: $0).addTo(contact)
         }
-        if #available(iOS 13, macOS 10.11, *), !includeNotesOnIos13AndAbove {} else {
+        if #available(iOS 13, *), !includeNotesOnIos13AndAbove {} else {
             if let note = (args["notes"] as! [[String: Any]]).first {
                 Note(fromMap: note).addTo(contact)
             }
